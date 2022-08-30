@@ -1,7 +1,9 @@
-x0 = 5
-a = 5
-c = 13
-m = 7
+x0 = 27
+a = 17
+c = 0
+m = 100
+
+dic = {}
 
 def x(n):
     if n == 0:
@@ -11,4 +13,4 @@ def x(n):
         print(newX)
         return newX
 
-x(10)
+x(100)
