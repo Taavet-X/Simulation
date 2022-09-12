@@ -1,4 +1,3 @@
-from ast import Global
 from random import randint
 import matplotlib.pyplot as plt
 
