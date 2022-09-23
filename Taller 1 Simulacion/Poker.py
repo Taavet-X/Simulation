@@ -44,14 +44,15 @@ numbers = [
 o = [
     0, #TD todos diferentes
     0, #1P Un par
-    0, #2P Dos pares
+    0, #2P Dos pares o T para 3 decimales
     0, #T Tercia
     0, #TP Tercia y un par
     0, #P Poker (4 de un tipo)
     0, #Q quintilla
 ]
 total = 0
-p = [
+
+p5 = [
     0.3024, #TD
     0.504, #1P
     0.108, #2P
@@ -60,6 +61,12 @@ p = [
     0.0045, #P
     0.0001, #Q
     ]
+
+p3 = [
+    0.72, #TD
+    0.24, #P
+    0.01  #T
+]
 
 E = []
 
@@ -71,6 +78,7 @@ def execute(numbers, decimals):
         dict = {}
         number = round(number, decimals)
         strNumber = str(number).split(".")[1]
+        #Se recorren los digitos de la parte decimal y se cuentan
         for i in range(decimals):
             try:
                 digit = strNumber[i]
@@ -81,32 +89,47 @@ def execute(numbers, decimals):
                 dict[digit] += 1
             except:
                 dict[digit] = 1
+        #se cuentan los tipos de agrupaciones, cantidad de pares, tercias, entre otros.
         dict2 = {1:0,2:0,3:0,4:0,5:0}
         for key in dict:
             dict2[dict[key]] += 1  
 
         global total
-        if dict2[1] == 5:
-            o[0] += 1 #TD
-            total += 1
-        elif dict2[1] == 3 and dict2[2] == 1:
-            o[1] += 1 #P
-            total += 1
-        elif dict2[1] == 1 and dict2[2] == 2:
-            o[2] += 1 #2P
-            total += 1
-        elif dict2[1] == 2 and dict2[3] == 1:
-            o[3] += 1 #T
-            total += 1
-        elif dict2[2] == 1 and dict2[3] == 1:
-            o[4] += 1 #TP
-            total += 1
-        elif dict2[1] == 1 and dict2[4] == 1:
-            o[5] += 1 #P
-            total += 1
-        elif dict2[5] == 1:
-            o[6] += 1
-            total += 1
+        if decimals == 5:
+            p = p5
+            if dict2[1] == 5:
+                o[0] += 1 #TD
+                total += 1
+            elif dict2[1] == 3 and dict2[2] == 1:
+                o[1] += 1 #P
+                total += 1
+            elif dict2[1] == 1 and dict2[2] == 2:
+                o[2] += 1 #2P
+                total += 1
+            elif dict2[1] == 2 and dict2[3] == 1:
+                o[3] += 1 #T
+                total += 1
+            elif dict2[2] == 1 and dict2[3] == 1:
+                o[4] += 1 #TP
+                total += 1
+            elif dict2[1] == 1 and dict2[4] == 1:
+                o[5] += 1 #P
+                total += 1
+            elif dict2[5] == 1:
+                o[6] += 1
+                total += 1
+        elif decimals == 3:
+            p = p3
+            if dict2[1] == 3:
+                o[0] += 1 #TD
+                total += 1
+            elif dict2[1] == 1 and dict2[2] == 1:
+                o[1] += 1 #P
+                total += 1
+            elif dict2[3] == 1:
+                o[2] += 1 #2P
+                total += 1
+
     for i in range(len(p)):
         prob = p[i]
         e = prob * total
@@ -135,6 +158,17 @@ execute(numbers, 5)
 0 1 1		TP
 1 0 0 1		P
 0 0 0 0 1     Q
+
+
+Para 3 decimales
+
+123
+112
+111
+
+1 2 3
+3
+1 1
+0 0 1
 '''
 
-'''test'''
