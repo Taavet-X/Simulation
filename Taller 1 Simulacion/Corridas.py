@@ -1,35 +1,55 @@
+import math
 #Cinco decimales
 #mostrar la tabla chi cuadrado
 #3 y de 5 decimales
-def count(string):
-    total = 0
-    last = ""
-    for char in string:
-        if char != "*":
-            if char != last:
-                total += 1
-                last = char
-    print(string + " " + str(total))
-
-def validarCrecimiento(list):
+def execute(list):
+    counters = {}
     res = "*"
+    last = "*"
+    counter = 1
     lastValue = list[0]
+    total = 0
     for value in list[1:]:
+        behavior = ""
         if value > lastValue:            
-            res += "+"
+            behavior = "+"
         elif value < lastValue:
-            res += "-"
-        lastValue = value
-    return res
+            behavior = "-"
 
-data = [
-    0.921, 0.804, 0.141, 0.601, 0.308, 0.163, 0.555,
-    0.987, 0.392, 0.571, 0.536, 0.066, 0.860, 0.869,
-    0.163, 0.511, 0.751, 0.441, 0.074, 0,437, 0.628,
-    0.727, 0.282, 0.655, 0.606, 0.699, 0.590, 0.783,
-    0.923, 0.511, 0.724, 0.489, 0.505, 0.395, 0.367,
-    0.901, 0.718, 0.612, 0.863, 0.941, 0.998, 0.276
+        if last != behavior:
+            try:
+                counters[counter] += 1
+            except:
+                counters[counter] = 1
+            counter = 1
+            total += 1
+        else:
+            counter +=1
+        
+        res += behavior
+        last = behavior
+        lastValue = value
+
+    n = len(list)
+    mu = (2*n - 1)/3
+    s = (16*n-29)/90
+    Zobs = (total - mu)/math.sqrt(s)
+
+    print(res)
+    print(total)
+    print(counters)
+    print(Zobs)
+
+#numbers = [0.1, 0.0, 0.1, 0.2, 0.1, 0.0, 0.1, 0.2, 0.3, 0.2, 0.3]
+
+numbers = [
+  0.41, 0.68, 0.89, 0.94, 0.74, 0.91, 0.55, 0.62, 0.36, 0.27,
+  0.19, 0.72, 0.75, 0.08, 0.54, 0.02, 0.01, 0.36, 0.16, 0.28,
+  0.18, 0.01, 0.95, 0.69, 0.18, 0.47, 0.23, 0.32, 0.82, 0.53,
+  0.31, 0.42, 0.73, 0.04, 0.83, 0.45, 0.13, 0.57, 0.63, 0.29
   ]
 
 
-count(validarCrecimiento(data))
+execute(numbers)
+
+#Como se conoce el valor de Zcrit 

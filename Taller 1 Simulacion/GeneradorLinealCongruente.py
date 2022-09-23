@@ -1,8 +1,8 @@
 generatedNumbers = {}
 
-def execute(x0, a, c, m):
+def execute(x0, a, c, m, limit):
     x = x0
-    for i in range(1000):        
+    for i in range(limit):        
         x = (a * x + c) % m
         Rn = x / m
         try:

@@ -2,12 +2,12 @@ import math
 
 generatedNumbers = {}
 
-def execute(x0, a, m):    
+def execute(x0, a, m, limit):    
     q = math.floor(m / a)
     r = m % a
     #m = a * q + r
     x = x0
-    for i in range(1000):
+    for i in range(limit):
         Rn = x / m
         try:
             generatedNumbers[Rn]
