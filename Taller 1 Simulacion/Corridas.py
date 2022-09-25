@@ -52,6 +52,6 @@ numbers = [
   ]
 
 
-execute(numbers)
+#execute(numbers)
 
 #Como se conoce el valor de Zcrit 

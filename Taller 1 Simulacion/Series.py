@@ -8,6 +8,14 @@ matrix = [
     [0,0,0,0,0],
     [0,0,0,0,0],
 ]
+
+matrix2 = [
+    [0,0,0,0,0],
+    [0,0,0,0,0],
+    [0,0,0,0,0],
+    [0,0,0,0,0],
+    [0,0,0,0,0],
+]
 '''
 matrix = [
     [18,30,20,21,25],
@@ -34,11 +42,12 @@ def execute(numbers):
     for i in range(len(matrix)):
         for j in range(len(matrix[i])):
             FO = matrix[i][j]
-            matrix[i][j] = round((FE-FO)**2 /FE,2)
-            X2calc += matrix[i][j]
+            matrix2[i][j] = round((FE-FO)**2 /FE,2)
+            X2calc += matrix2[i][j]
     print("----------------------")
-    print(*matrix, sep="\n")
+    print(*matrix2, sep="\n")
     print(X2calc)
+    return matrix, matrix2
 
 
 

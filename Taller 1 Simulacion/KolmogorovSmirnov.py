@@ -60,3 +60,5 @@ def execute(numbers):
 
     print("DMcrit", DMcrit)
     print(DMcalc <= DMcrit)
+
+    return fos, foas, poas, peas, difs, DMcalc

@@ -141,7 +141,7 @@ def execute(numbers, decimals):
         x2Total += x2
     print(o, total,"\n",p,"\n", E,"\n", x2s, "\nx2", x2Total)
 
-execute(numbers, 3)
+#execute(numbers, 3)
 
 '''
 12345	12345	5	TD

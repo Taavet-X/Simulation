@@ -30,7 +30,7 @@ def execute(numbers):
         counters[math.ceil(number*10)-1] += 1
 
 
-    print(counters)
+    
 
     fe = len(numbers) / len(counters)
 
@@ -41,9 +41,10 @@ def execute(numbers):
         x2 += x2Partial
         x2sPartials.append(x2Partial)
 
-    print(x2sPartials)
-    print(x2)
-
+    #print(counters)
+    #print(x2sPartials)
+    #print(x2)
+    return counters, fe, x2sPartials, x2
     '''
     for i in range(10):
         if number <=

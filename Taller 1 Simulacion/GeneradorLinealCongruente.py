@@ -1,6 +1,7 @@
-generatedNumbers = {}
+
 
 def execute(x0, a, c, m, limit):
+    generatedNumbers = {}
     x = x0
     for i in range(limit):        
         x = (a * x + c) % m
@@ -11,16 +12,16 @@ def execute(x0, a, c, m, limit):
             break
         except:
             generatedNumbers[Rn] = 1 #Adiciona un registro con el Rn
-        
-        
-    saveGeneratedNumbers()
-        
+    #saveGeneratedNumbers()
+    return list(generatedNumbers.keys())
+    
+'''        
 def saveGeneratedNumbers():
     file = open("GLC.txt", "w")
     for key in generatedNumbers.keys():
         file.write(str(key) + "\n")
     file.close()
-
+'''
 
 #Seleccionar un m muy grande, preferiblemente que sea potencia de dos por eficiencia 
 #Seleccionar un c, tal que c y m sean primos relativos; c preferiblemente impar y a = 1 + 4k (k es cualquier entero)
