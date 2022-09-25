@@ -2,14 +2,16 @@ import math
 #Cinco decimales
 #mostrar la tabla chi cuadrado
 #3 y de 5 decimales
-def execute(list):
+def execute(numbers):
+    #para el diccionario la estructura se contempla asi:
+    #{"longitud de corrida": veces que aparece}
     counters = {}
     res = "*"
     last = "*"
     counter = 1
-    lastValue = list[0]
+    lastValue = numbers[0]
     total = 0
-    for value in list[1:]:
+    for value in numbers[1:]:
         behavior = ""
         if value > lastValue:            
             behavior = "+"
@@ -30,7 +32,7 @@ def execute(list):
         last = behavior
         lastValue = value
 
-    n = len(list)
+    n = len(numbers)
     mu = (2*n - 1)/3
     s = (16*n-29)/90
     Zobs = (total - mu)/math.sqrt(s)

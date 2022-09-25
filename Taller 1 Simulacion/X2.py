@@ -1,16 +1,19 @@
 import math
 
-def execute(url):
+def execute(numbers):
+    '''
+    #Lectura de los datos desde txt
     file = open(url, "r")
     lines = file.readlines()
     numbers = []
-
+    #conversion de los datos a double
     for i in lines:
         try:
             numbers.append(float(i))
         except:
             print("Imposible to convert line #", i, "for", lines[i])
-
+    '''
+    #x^2
     counters = [
         0, #[0, 0.1]
         0, #(0.1, 0.2]

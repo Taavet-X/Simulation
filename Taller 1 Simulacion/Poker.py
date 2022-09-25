@@ -79,12 +79,14 @@ def execute(numbers, decimals):
         number = round(number, decimals)
         strNumber = str(number).split(".")[1]
         #Se recorren los digitos de la parte decimal y se cuentan
+        #de manera que se tengan la cantidad de veces que cada digito aparece en el numero
         for i in range(decimals):
+            #Se corrige el numero, ej 0.1 -> 1 -> 10000 para 5 decimales
             try:
                 digit = strNumber[i]
             except:
                 digit = "0"
-
+            #incrementa si existe, define como 1 si no existe.
             try:
                 dict[digit] += 1
             except:
@@ -139,7 +141,7 @@ def execute(numbers, decimals):
         x2Total += x2
     print(o, total,"\n",p,"\n", E,"\n", x2s, "\nx2", x2Total)
 
-execute(numbers, 5)
+execute(numbers, 3)
 
 '''
 12345	12345	5	TD

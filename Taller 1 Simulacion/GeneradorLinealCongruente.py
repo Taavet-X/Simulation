@@ -10,7 +10,7 @@ def execute(x0, a, c, m, limit):
             print("Periodo: ", i)
             break
         except:
-            generatedNumbers[Rn] = 1
+            generatedNumbers[Rn] = 1 #Adiciona un registro con el Rn
         
         
     saveGeneratedNumbers()

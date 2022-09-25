@@ -1,7 +1,8 @@
 import math
 import numpy as np
 
-def execute(url):
+def execute(numbers):
+    '''
     file = open(url, "r")
     lines = file.readlines()
     numbers = []
@@ -11,7 +12,7 @@ def execute(url):
             numbers.append(float(i))
         except:
             print("Imposible to convert line #", i, "for", lines[i])
-
+    '''
     fos = [
         0, #[0, 0.1]
         0, #(0.1, 0.2]

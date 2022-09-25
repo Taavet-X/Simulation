@@ -1,6 +1,6 @@
 import math
 
-'''
+
 matrix = [
     [0,0,0,0,0],
     [0,0,0,0,0],
@@ -16,6 +16,7 @@ matrix = [
     [29,26,24,17,22],
     [25,26,21,27,23],
 ]
+'''
 
 def execute(numbers):
     for i in range(math.ceil(len(numbers)/2)):
@@ -27,18 +28,17 @@ def execute(numbers):
         except:
             print("The list lenght wasn't odd, the last number is not included")            
     print(*matrix, sep="\n")
-
-print(*matrix, sep="\n")     
-FE = (1200/2) * (1/25)
-X2calc = 0
-for i in range(len(matrix)):
-    for j in range(len(matrix[i])):
-        FO = matrix[i][j]
-        matrix[i][j] = round((FE-FO)**2 /FE,2)
-        X2calc += matrix[i][j]
-print("----------------------")
-print(*matrix, sep="\n")
-print(X2calc)
+    n = len(numbers)
+    FE = (n/2) / 25
+    X2calc = 0
+    for i in range(len(matrix)):
+        for j in range(len(matrix[i])):
+            FO = matrix[i][j]
+            matrix[i][j] = round((FE-FO)**2 /FE,2)
+            X2calc += matrix[i][j]
+    print("----------------------")
+    print(*matrix, sep="\n")
+    print(X2calc)
 
 
 
