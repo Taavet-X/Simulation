@@ -1,7 +1,7 @@
 import math
 import numpy as np
 
-def execute(numbers):
+def execute(numbers, nc):
     '''
     file = open(url, "r")
     lines = file.readlines()
@@ -29,7 +29,7 @@ def execute(numbers):
         fos[math.ceil(number*10)-1] += 1
 
 
-    print(fos)
+    
 
     foas = []
     poas = []
@@ -48,17 +48,25 @@ def execute(numbers):
         if difference >= DMcalc:
             DMcalc = difference
 
+    c = math.sqrt(-np.log(nc/2)*1/2)    
+    gl = len(numbers) - 1
+    DMcrit = round(c/math.sqrt(n),3)
+    strRes = "gl: " + str(gl) + "\nNivel de confianza: " + str(nc) + "\nDMcalc: " + str(DMcalc) + "\nDMcrit: " + str(DMcrit)
+    if DMcalc <= DMcrit:
+        strRes += "\nDMcalc <= DMcrit -> Los datos tienen distribución U(0, 1)"
+        strRes += "\n\nConclusión:\nEl generador es bueno en cuanto a uniformidad"
+    else:
+        strRes += "\nDMcalc > DMcrit -> Los datos NO tienen distribución U(0, 1)"
+        strRes += "\n\nConclusión:\nEl generador NO es bueno en cuanto a uniformidad"
+
+    '''
+    print(fos)
     print("FO",foas)
     print("FOA",poas)
     print("POA",peas)
     print("|PEA-POA|", difs)
     print("DMcalc",DMcalc)
-
-    a  = 0.05
-    c = math.sqrt(-np.log(a/2)*1/2)
-    DMcrit = round(c/math.sqrt(n),3)
-
     print("DMcrit", DMcrit)
     print(DMcalc <= DMcrit)
-
-    return fos, foas, poas, peas, difs, DMcalc
+    '''
+    return fos, foas, poas, peas, difs, DMcalc, strRes

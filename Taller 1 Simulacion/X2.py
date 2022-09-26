@@ -1,6 +1,7 @@
 import math
+import Values
 
-def execute(numbers):
+def execute(numbers, nc):
     '''
     #Lectura de los datos desde txt
     file = open(url, "r")
@@ -44,7 +45,17 @@ def execute(numbers):
     #print(counters)
     #print(x2sPartials)
     #print(x2)
-    return counters, fe, x2sPartials, x2
+
+    gl = len(counters) - 1
+    xcrit = Values.get(gl, nc)
+    strRes = "gl: " + str(gl) + "\nNivel de confianza: " + str(nc) + "\nX2calc: " + str(x2) + "\nX2crit: " + str(xcrit)
+    if x2 <= xcrit:
+        strRes += "\nX2calc <= X2crit -> Los datos tienen distribución U(0, 1)"
+        strRes += "\n\nConclusión:\nEl generador es bueno en cuanto a uniformidad"
+    else:
+        strRes += "\nX2calc > X2crit -> Los datos NO tienen distribución U(0, 1)"
+        strRes += "\n\nConclusión:\nEl generador NO es bueno en cuanto a uniformidad"
+    return counters, fe, x2sPartials, x2, strRes
     '''
     for i in range(10):
         if number <=
