@@ -2,20 +2,8 @@ import math
 import Values
 
 def execute(numbers, nc):
-    '''
-    #Lectura de los datos desde txt
-    file = open(url, "r")
-    lines = file.readlines()
-    numbers = []
-    #conversion de los datos a double
-    for i in lines:
-        try:
-            numbers.append(float(i))
-        except:
-            print("Imposible to convert line #", i, "for", lines[i])
-    '''
-    #x^2
-    counters = [
+
+    fos = [ #FOs
         0, #[0, 0.1]
         0, #(0.1, 0.2]
         0, #(0.2, 0.3]
@@ -27,52 +15,28 @@ def execute(numbers, nc):
         0, #(0.8, 0.9]
         0, #(0.9, 1]
     ]
-    for number in numbers:
-        counters[math.ceil(number*10)-1] += 1
 
+    for number in numbers: #Recorrer todos los numeros generados
+        index = math.ceil(number*10)-1 #Se convierte el numero al indice que corresponde en el listado fos
+        fos[index] += 1 #Suma 1 a esa posicion
 
-    
+    #se divide la cantidad de numeros, en la cantidad de rangos
+    fe = len(numbers) / len(fos) #Se calcula la frecuencia esperada para cada rango
 
-    fe = len(numbers) / len(counters)
+    x2sPartials = [] #El listado de los x2 individuales es decir por fila, o rango
+    x2calc = 0 #Acomulador de los x2 individuales
+    for fo in fos: #se recorren todas las frecuencias obtenidas
+        x2Partial = (fe - fo)**2 / fe #se calcula el x2 individual es decir el de la fila
+        x2calc += x2Partial #se acomula el resultado en el x2calc
+        x2sPartials.append(x2Partial) #se adiciona el resultado a la lista
 
-    x2sPartials = []
-    x2 = 0
-    for counter in counters:    
-        x2Partial = (fe - counter)**2 / fe
-        x2 += x2Partial
-        x2sPartials.append(x2Partial)
-
-    #print(counters)
-    #print(x2sPartials)
-    #print(x2)
-
-    gl = len(counters) - 1
-    xcrit = Values.get(gl, nc)
-    strRes = "gl: " + str(gl) + "\nNivel de confianza: " + str(nc) + "\nX2calc: " + str(x2) + "\nX2crit: " + str(xcrit)
-    if x2 <= xcrit:
+    gl = len(fos) - 1 #Grados de libertad, cantidad de clases - 1
+    xcrit = Values.get(gl, nc) #Se obtiene el xcritico de la tabla de probabilidades
+    strRes = "gl: " + str(gl) + "\nNivel de confianza: " + str(nc) + "\nX2calc: " + str(x2calc) + "\nX2crit: " + str(xcrit)
+    if x2calc <= xcrit: #En el caso de que se acepte
         strRes += "\nX2calc <= X2crit -> Los datos tienen distribución U(0, 1)"
         strRes += "\n\nConclusión:\nEl generador es bueno en cuanto a uniformidad"
-    else:
+    else: #Caso de no aceptacion
         strRes += "\nX2calc > X2crit -> Los datos NO tienen distribución U(0, 1)"
         strRes += "\n\nConclusión:\nEl generador NO es bueno en cuanto a uniformidad"
-    return counters, fe, x2sPartials, x2, strRes
-    '''
-    for i in range(10):
-        if number <=
-    if number <= 0.1:
-        counters[0] += 1
-    elif number <= 0.2:
-        counters[1] += 1
-    elif number <= 0.2:
-        counters[1] += 1
-    elif number <= 0.2:
-        counters[1] += 1
-    elif number <= 0.2:
-        counters[1] += 1
-    elif number <= 0.2:
-        counters[1] += 1
-    elif number <= 0.2:
-        counters[1] += 1
-    elif number <= 0.2:
-        counters[1] += 1
-    '''
+    return fos, fe, x2sPartials, x2calc, strRes

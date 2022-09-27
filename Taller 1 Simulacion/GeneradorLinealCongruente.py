@@ -1,32 +1,18 @@
-
-
-def execute(x0, a, c, m, limit):
-    generatedNumbers = {}
-    x = x0
-    for i in range(limit):        
-        x = (a * x + c) % m
-        Rn = x / m
+def execute(x0, a, c, m, limit): #El limite se utiliza ya que no afecta el algoritmo, mientras que m si.
+    generatedNumbers = {} #Diccionario, se usa por eficiencia.
+    x = x0 #se define inicialmente como la semilla
+    for i in range(limit): #Se recorre operando desde la semilla hasta llegar al limite
+        x = (a * x + c) % m #Se calcula el nuevo valor de la x con el algoritmo del GLC
+        Rn = x / m #Se calcula numero pseudoaleatorio
         try:
-            generatedNumbers[Rn]
-            print("Periodo: ", i)
-            break
+            generatedNumbers[Rn] #Se intenta acceder al diccionario
+            #con un key que es igual al Rn generado, si no existe dicho key
+            #en el diccionario, esto arroja error, por lo que se va al except
+            #pero en caso de que exista, no hay error y siguen las siguientes lineas
+            print("Periodo: ", i) #imprime el periodo
+            break #Termina la ejecucion, ya que si encontro un key en el diccionario, es porque
+            #Se empiezan a repetir los numeros
         except:
-            generatedNumbers[Rn] = 1 #Adiciona un registro con el Rn
-    #saveGeneratedNumbers()
-    return list(generatedNumbers.keys())
-    
-'''        
-def saveGeneratedNumbers():
-    file = open("GLC.txt", "w")
-    for key in generatedNumbers.keys():
-        file.write(str(key) + "\n")
-    file.close()
-'''
-
-#Seleccionar un m muy grande, preferiblemente que sea potencia de dos por eficiencia 
-#Seleccionar un c, tal que c y m sean primos relativos; c preferiblemente impar y a = 1 + 4k (k es cualquier entero)
-#execute(x0 = 1, a = 5, c = 7, m = 1024)
-#execute(x0 = 5, a = 106, c = 1283, m = 6075)
-#saveGeneratedNumbers()
-
-#Se debe tomar el random generado con la semilla?
+            #en el caso del error            
+            generatedNumbers[Rn] = 1 #Crear un registro con Rn como key
+    return list(generatedNumbers.keys()) #Retorna el listado de numeros generados
