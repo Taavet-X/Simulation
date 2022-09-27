@@ -1,8 +1,9 @@
 import math
+import Values
 #Cinco decimales
 #mostrar la tabla chi cuadrado
 #3 y de 5 decimales
-def execute(numbers):
+def execute(numbers, alpha):
     #para el diccionario la estructura se contempla asi:
     #{"longitud de corrida": veces que aparece}
     counters = {}
@@ -36,12 +37,28 @@ def execute(numbers):
     mu = (2*n - 1)/3
     s = (16*n-29)/90
     Zobs = (total - mu)/math.sqrt(s)
+    halfAlpha = alpha/2
+    Zcrit = Values.getZ(halfAlpha)
 
+    strRes = str(counters)
+    strRes += "\nNivel de confianza: " + str(alpha) 
+    strRes += "\nMedia: " + str(mu) 
+    strRes += "\nVarianza: " + str(s) 
+    strRes += "\nZobs: " + str(Zobs)
+    strRes += "\nZcrit: " + str(Zcrit)
+    if Zobs >= -Zcrit and Zobs <= Zcrit:
+        strRes += "\nZobs pertenece al rango [-Zcrit, Zcrit]"
+        strRes += "\n\nConclusión:\nNo hay evidencia para rechazar la hipótesis de independencia"
+    else:
+        strRes += "\nZobs NO pertenece al rango [-Zcrit, Zcrit]"
+        strRes += "\n\nConclusión:\nSe rechaza la hipótesis de independencia"
+    return res, strRes
+    '''
     print(res)
     print(total)
     print(counters)
     print(Zobs)
-
+    '''
 #numbers = [0.1, 0.0, 0.1, 0.2, 0.1, 0.0, 0.1, 0.2, 0.3, 0.2, 0.3]
 
 numbers = [

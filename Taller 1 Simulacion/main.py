@@ -1,9 +1,8 @@
 import GeneradorLinealCongruente
 import GeneradorEstandarMinimo
 import RandomsPython
-import X2
-import KolmogorovSmirnov
 import Series
+from tkinter import messagebox as mb
 
 import tkinter as tk
 from tkinter import ttk
@@ -133,6 +132,9 @@ tab2.grid_columnconfigure(0, weight = 1)
 tab2.grid_rowconfigure(2, weight = 1)
 
 tab3 = tk.Frame(tabControl)
+tab3.grid_columnconfigure(0, weight = 1)
+tab3.grid_rowconfigure(2, weight = 1)
+
 tab4 = tk.Frame(tabControl)
 tab5 = tk.Frame(tabControl)
   
@@ -159,114 +161,11 @@ GUI.X2View.X2Table(tab1, numbers)
 #TABLA KOLMOGOROV ###############################
 import GUI.KolmogorovSmirnovView
 GUI.KolmogorovSmirnovView.KolmogorovSmirnovTable(tab2, numbers)
-'''
-frmKolmogorovTableOptions = tk.Frame(master = tab2, relief=tk.GROOVE, borderwidth=1)
-btnRunKolmogorov = tk.Button(master = frmKolmogorovTableOptions, text = "Ejecutar Prueba")
-btnRunKolmogorov.grid(row = 0, column = 0)
-
-
-frmKolmogorovTableOptions.grid(row = 0, column=0)
-
-frmKolmogorov = tk.Frame(master = tab2)
-frmKolmogorov.grid( row = 1, column = 0)
-
-label1 = tk.Label(master = frmKolmogorov, width= 10, text = "Rango", relief=tk.RAISED, borderwidth=1)
-label1.grid(row = 0, column = 0)
-
-label2 = tk.Label(master = frmKolmogorov, width= 10, text = "FO", relief=tk.RAISED, borderwidth=1)
-label2.grid(row = 0, column = 1)
-
-label3 = tk.Label(master = frmKolmogorov, width= 10, text = "FOA", relief=tk.RAISED, borderwidth=1)
-label3.grid(row = 0, column = 2)
-
-label4 = tk.Label(master = frmKolmogorov, width= 10, text = "POA", relief=tk.RAISED, borderwidth=1)
-label4.grid(row = 0, column = 3)
-
-label5 = tk.Label(master = frmKolmogorov, width= 10, text = "PEA", relief=tk.RAISED, borderwidth=1)
-label5.grid(row = 0, column = 4)
-
-label6 = tk.Label(master = frmKolmogorov, width= 10, text = "|PEA - POA|", relief=tk.RAISED, borderwidth=1)
-label6.grid(row = 0, column = 5)
-
-
-lblFOsKolmogorov = []
-lblFOAsKolmogorov = []
-lblPOAsKolmogorov = []
-lblPEAsKolmogorov = []
-lblDifsKolmogorov = []
-
-for i in range(10):
-    row = i+1
-    ri = str(i/10)
-    rs = str((i+1)/10)
-    lblRange = tk.Label(master = frmKolmogorov, width= 10, text = ri + " - " + rs, relief=tk.GROOVE, borderwidth=1)
-    lblRange.grid(row = row, column = 0)
-
-    lblFO = tk.Label(master = frmKolmogorov, width= 10, text = "", relief=tk.GROOVE, borderwidth=1)
-    lblFOsKolmogorov.append(lblFO)
-    lblFO.grid(row = row, column = 1)
-
-    lblFOA = tk.Label(master = frmKolmogorov, width= 10, text = "", relief=tk.GROOVE, borderwidth=1)
-    lblFOAsKolmogorov.append(lblFOA)
-    lblFOA.grid(row = row, column = 2)
-
-    lblPOA = tk.Label(master = frmKolmogorov, width= 10, text = "", relief=tk.GROOVE, borderwidth=1)
-    lblPOAsKolmogorov.append(lblPOA)
-    lblPOA.grid(row = row, column = 3)
-
-    lblPEA = tk.Label(master = frmKolmogorov, width= 10, text = "", relief=tk.GROOVE, borderwidth=1)
-    lblPEAsKolmogorov.append(lblPEA)
-    lblPEA.grid(row = row, column = 4)
-
-    lblDif = tk.Label(master = frmKolmogorov, width= 10, text = "", relief=tk.GROOVE, borderwidth=1)
-    lblDifsKolmogorov.append(lblDif)
-    lblDif.grid(row = row, column = 5)
-
-label1 = tk.Label(master = frmKolmogorov, width= 10, text = "DM calc", relief=tk.RAISED, borderwidth=1)
-label1.grid(row = 11, column = 4)
-
-lblDMTotal = tk.Label(master = frmKolmogorov, width= 10, text = "", relief=tk.GROOVE, borderwidth=1)
-lblDMTotal.grid(row = 11, column = 5)
-
-
-def setFOsKolmogorov(fos):
-    for i in range(len(fos)):
-        lblFOsKolmogorov[i].config(text = str(fos[i]))
-
-def setFOAsKolmogorov(foas):
-    for i in range(len(foas)):
-        lblFOAsKolmogorov[i].config(text = str(foas[i]))
-
-def setPOAsKolmogorov(poas):
-    for i in range(len(poas)):
-        lblPOAsKolmogorov[i].config(text = str(poas[i]))
-
-def setPEAsKolmogorov(peas):
-    for i in range(len(peas)):
-        lblPEAsKolmogorov[i].config(text = str(peas[i]))
-    
-def setDifsKolmogorov(difs):
-    for i in range(len(difs)):
-        lblDifsKolmogorov[i].config(text = str(difs[i]))
-
-def setDM(dm):
-    lblDMTotal.config(text = dm)
-
-def executeKolmogorov(event):
-    if len(numbers) == 0:
-        print("No hay numeros generados")
-    else:
-        fos, foas, poas, peas, difs, dm = KolmogorovSmirnov.execute(numbers)
-        setFOsKolmogorov(fos)
-        setFOAsKolmogorov(foas)
-        setPOAsKolmogorov(poas)
-        setPEAsKolmogorov(peas)
-        setDifsKolmogorov(difs)
-        setDM(dm)        
-        
-btnRunKolmogorov.bind('<Button-1>', executeKolmogorov)
-'''
 #FIN TABLA KOLMOGOROV ###############################
+#TABLA CORRIDAS ###############################
+import GUI.CorridasView
+GUI.CorridasView.View(tab3, numbers)
+#FIN TABLA CORRIDAS ###############################
 #TABLA SERIES ###############################
 frmSeriesTable1Options = tk.Frame(master = tab4, relief=tk.GROOVE, borderwidth=1)
 btnRunSeries = tk.Button(master = frmSeriesTable1Options, text = "Ejecutar Prueba")
@@ -368,44 +267,58 @@ def generateNumbers(event):
 
     if gen == "Lineal Congruente":
         try:
-            x0 = int(entX0.get())
-            a = int(enta.get())
-            c = int(entc.get())
-            m = int(entm.get())
-            limit = int(entLimit.get())
+            try:
+                x0 = int(entX0.get())
+                a = int(enta.get())
+                c = int(entc.get())
+                m = int(entm.get())
+                limit = int(entLimit.get())
+            except:
+                mb.showerror("Info", "Dato no valido")
+                return
             numbers.clear()
             numbers.extend(GeneradorLinealCongruente.execute(x0, a, c, m, limit))
             txtGeneratedNumbers.delete('1.0', tk.END)
             for number in numbers:
                 txtGeneratedNumbers.insert(tk.END, str(number)+"\n") 
-        except NameError:            
-            print(NameError)  
+        except NameError:
+            mb.showerror("Info", "Error")
+            print(NameError)              
 
     elif gen == "Estandar Minimo":
         try:
-            x0 = int(entX0.get())
-            a = int(enta.get())
-            m = int(entm.get())
-            limit = int(entLimit.get())
+            try:
+                x0 = int(entX0.get())
+                a = int(enta.get())
+                m = int(entm.get())
+                limit = int(entLimit.get())
+            except:
+                mb.showerror("Info", "Dato no valido")
+                return
             numbers.clear()
             numbers.extend(GeneradorEstandarMinimo.execute(x0, a, m, limit))
             txtGeneratedNumbers.delete('1.0', tk.END)
             for number in numbers:
                 txtGeneratedNumbers.insert(tk.END, str(number)+"\n")
-
-        except NameError:            
+        except NameError:
+            mb.showerror("Info", "Error")
             print(NameError)  
 
     elif gen == "Python":
         try:
-            limit = int(entLimit.get())
+            try:
+                limit = int(entLimit.get())
+            except:
+                mb.showerror("Info", "Dato no valido")
+                return
             numbers.clear()
             numbers.extend(RandomsPython.execute(limit))
             txtGeneratedNumbers.delete('1.0', tk.END)
             for number in numbers:
                 txtGeneratedNumbers.insert(tk.END, str(number)+"\n")
         except:
-            print("Dato no valido")
+            mb.showerror("Info", "Error")
+            print(NameError)  
 
 btnGenerate.bind('<Button-1>', generateNumbers)
 

@@ -1,5 +1,6 @@
 import tkinter as tk
 import X2
+from tkinter import messagebox as mb
 
 class X2Table:
 
@@ -94,9 +95,9 @@ class X2Table:
     def executeX2(self, event):
         numbers = self.numbers
         if len(numbers) == 0:
-            print("No hay numeros generados")
+            mb.showerror("Info", "No hay numeros generados")
         elif len(self.entAlpha.get()) == 0:
-            print("Debe indicar un nivel de confianza")          
+            mb.showerror("Info", "Debe indicar un nivel de confianza")       
         else:
             try:
                 nc = float(self.entAlpha.get())
@@ -108,7 +109,7 @@ class X2Table:
                 self.setRes(strRes)
             except NameError:
                 print(NameError)
-                print("El nivel de confianza debe ser un double")
+                mb.showerror("Info", "El nivel de confianza debe ser un double")
             
             
     

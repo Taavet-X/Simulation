@@ -1,7 +1,7 @@
 import tkinter as tk
-import KolmogorovSmirnov
+import Series
 
-class KolmogorovSmirnovTable:
+class SeriesView:
 
     def __init__(self, master, numbers):
         self.numbers = numbers
