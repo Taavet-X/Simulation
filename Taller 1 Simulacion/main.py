@@ -136,6 +136,9 @@ tab3.grid_columnconfigure(0, weight = 1)
 tab3.grid_rowconfigure(2, weight = 1)
 
 tab4 = tk.Frame(tabControl)
+tab4.grid_columnconfigure(0, weight = 1)
+tab4.grid_rowconfigure(2, weight = 1)
+
 tab5 = tk.Frame(tabControl)
   
 tabControl.add(tab1, text ='X2')
@@ -167,6 +170,10 @@ import GUI.CorridasView
 GUI.CorridasView.View(tab3, numbers)
 #FIN TABLA CORRIDAS ###############################
 #TABLA SERIES ###############################
+import GUI.SeriesView
+GUI.SeriesView.SeriesView(tab4, numbers)
+
+'''
 frmSeriesTable1Options = tk.Frame(master = tab4, relief=tk.GROOVE, borderwidth=1)
 btnRunSeries = tk.Button(master = frmSeriesTable1Options, text = "Ejecutar Prueba")
 btnRunSeries.grid(row = 0, column = 0)
@@ -229,7 +236,7 @@ def executeSeries(event):
                 
 btnRunSeries.bind('<Button-1>', executeSeries)
 
-'''
+
 def executeX2(event):
     if len(numbers) == 0:
         print("No hay numeros generados")
@@ -242,9 +249,9 @@ def executeX2(event):
         
         
 btnRunX2.bind('<Button-1>', executeX2)
-'''
 
-'''
+
+
 fos = [91, 102, 113, 110, 87, 95, 98, 104, 117, 83]
 setFOs(fos)
 
@@ -257,6 +264,7 @@ setX2s(x2s)
 x2 = 11.46
 setX2(x2)
 '''
+
 #FIN TABLA X2 ###############################
 
 ####################

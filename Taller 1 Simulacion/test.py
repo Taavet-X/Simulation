@@ -1,3 +1,4 @@
+'''
 dict = {
     "key1": 1,
     "key2": 2
@@ -21,7 +22,20 @@ dict2 = {
 alpha = 0.25
 gl = 3
 gl -= 1
-print(dict2[str(alpha)][gl])
+#print(dict2[str(alpha)][gl])
 
 l = [1,2,3,4,5]
-print(max(l))
+#print(max(l))
+'''
+'''
+import math
+pair = (0.41, 0.68)
+rowIndex = math.ceil(pair[0]/2*10)-1
+columnIndex = math.ceil(pair[1]/2*10)-1
+print(rowIndex)
+print(columnIndex)
+'''
+try:
+    value = int("s")
+except:
+    print("No se puede")

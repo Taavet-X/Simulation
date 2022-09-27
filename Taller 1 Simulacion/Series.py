@@ -1,21 +1,6 @@
 import math
+import Values
 
-
-matrix = [
-    [0,0,0,0,0],
-    [0,0,0,0,0],
-    [0,0,0,0,0],
-    [0,0,0,0,0],
-    [0,0,0,0,0],
-]
-
-matrix2 = [
-    [0,0,0,0,0],
-    [0,0,0,0,0],
-    [0,0,0,0,0],
-    [0,0,0,0,0],
-    [0,0,0,0,0],
-]
 '''
 matrix = [
     [18,30,20,21,25],
@@ -26,7 +11,22 @@ matrix = [
 ]
 '''
 
-def execute(numbers):
+def execute(numbers, nc):
+    matrix = [
+        [0,0,0,0,0],
+        [0,0,0,0,0],
+        [0,0,0,0,0],
+        [0,0,0,0,0],
+        [0,0,0,0,0],
+    ]
+
+    matrix2 = [
+        [0,0,0,0,0],
+        [0,0,0,0,0],
+        [0,0,0,0,0],
+        [0,0,0,0,0],
+        [0,0,0,0,0],
+    ]
     for i in range(math.ceil(len(numbers)/2)):
         try:
             pair = (numbers[i*2], numbers[i*2 + 1])
@@ -35,19 +35,34 @@ def execute(numbers):
             matrix[rowIndex][columnIndex] += 1
         except:
             print("The list lenght wasn't odd, the last number is not included")            
-    print(*matrix, sep="\n")
+    #print(*matrix, sep="\n")
     n = len(numbers)
     FE = (n/2) / 25
+    #print("FE:", FE)
     X2calc = 0
     for i in range(len(matrix)):
         for j in range(len(matrix[i])):
             FO = matrix[i][j]
-            matrix2[i][j] = round((FE-FO)**2 /FE,2)
+            matrix2[i][j] = round( (FE-FO)**2 /FE, 2)
             X2calc += matrix2[i][j]
-    print("----------------------")
-    print(*matrix2, sep="\n")
-    print(X2calc)
-    return matrix, matrix2
+    #print("----------------------")
+    #print(*matrix2, sep="\n")
+    #print(X2calc)
+
+    gl = len(matrix)*len(matrix[0]) - 1
+    xcrit = Values.get(gl, nc)
+    strRes = "gl: " + str(gl)
+    strRes += "\nNivel de confianza: " + str(nc)
+    strRes += "\nX2calc: " + str(X2calc)
+    strRes += "\nX2crit: " + str(xcrit)
+    if X2calc <= xcrit:
+        strRes += "\nX2calc <= X2crit"
+        strRes += "\n\nConclusión:\nEl resultado no permite rechazar la hipotesis de independencia"
+    else:
+        strRes += "\nX2calc > X2crit"
+        strRes += "\n\nConclusión:\nSe rechaza la hipotesis de independencia"
+
+    return matrix, matrix2, strRes
 
 
 

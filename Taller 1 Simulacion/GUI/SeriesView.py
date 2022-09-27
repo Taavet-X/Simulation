@@ -7,7 +7,8 @@ class SeriesView:
         self.numbers = numbers
         self.master = master
         self.createOptions()
-        self.createTable()
+        self.createTable1()
+        self.createTable2()
 
     def createOptions(self):
         frmOptions = tk.Frame(master = self.master, relief=tk.GROOVE, borderwidth=1)
@@ -25,20 +26,90 @@ class SeriesView:
         btnExecute.grid(row = 0, column = 2, sticky="news", padx = 5, pady = 5)
         btnExecute.bind('<Button-1>', self.execute)
 
-    def createTable(self):
+    def createTable1(self):
         frmTable = tk.Frame(master = self.master)
         frmTable.grid( row = 1, column = 0, sticky="news", padx = 5, pady = 5)
 
-        #Se configuran las 4 columnas de la tabla para que tengan igual tamaño
+        #Se configuran las 6 columnas de la tabla para que tengan igual tamaño
         for i in range(6):
             frmTable.grid_columnconfigure(i, weight = 1)
         
-        #Se crean los headers
-        headers = ["Rango", "FO", "FOA", "POA", "PEA", "|PEA-POA|"]
-        for i in range(len(headers)):
-            lblHeader = tk.Label(master = frmTable,  text = headers[i], width=10, relief=tk.RAISED, borderwidth=1)
-            lblHeader.grid(row = 0, column = i, sticky="news")
+        #Se crean los rangos
+        for i in range(5):
+            li = str(i/10*2)
+            ls = str((i+1)/10*2)
+            lblRango = tk.Label(master = frmTable, text = li + " - " + ls, relief=tk.RAISED, borderwidth=1)
+            lblRango.grid(row = 0, column = i+1,  sticky="news")
+            lblRango = tk.Label(master = frmTable, text = li + " - " + ls, relief=tk.GROOVE, borderwidth=1)
+            lblRango.grid(row = i+1, column = 0,  sticky="news")
 
+        #Se crean las celdas
+        self.lblsMatrix = []
+        for i in range(5):
+            lblsCells = []
+            for j in range(5):
+                label = tk.Label(master = frmTable, width= 10, relief=tk.GROOVE, borderwidth=1)
+                label.grid(row = i+1, column = j+1, sticky="news")
+                lblsCells.append(label)
+            self.lblsMatrix.append(lblsCells)
+    
+    def createTable2(self):
+        frmTable = tk.Frame(master = self.master)
+        frmTable.grid( row = 2, column = 0, sticky="news", padx = 5, pady = 5)
+
+        #Se configuran las 6 columnas de la tabla para que tengan igual tamaño
+        for i in range(6):
+            frmTable.grid_columnconfigure(i, weight = 1)
+
+        self.txtResult = tk.Text(master = self.master)
+        self.txtResult.grid(row = 3, column=0, sticky = "news", padx=5, pady=5)
+        
+        #Se crean los rangos
+        for i in range(5):
+            li = str(i/10*2)
+            ls = str((i+1)/10*2)
+            lblRango = tk.Label(master = frmTable, text = li + " - " + ls, relief=tk.RAISED, borderwidth=1)
+            lblRango.grid(row = 0, column = i+1,  sticky="news")
+            lblRango = tk.Label(master = frmTable, text = li + " - " + ls, relief=tk.GROOVE, borderwidth=1)
+            lblRango.grid(row = i+1, column = 0,  sticky="news")
+
+        #Se crean las celdas
+        self.lblsMatrix2 = []
+        for i in range(5):
+            lblsCells = []
+            for j in range(5):
+                label = tk.Label(master = frmTable, width= 10, relief=tk.GROOVE, borderwidth=1)
+                label.grid(row = i+1, column = j+1, sticky="news")
+                lblsCells.append(label)
+            self.lblsMatrix2.append(lblsCells)
+
+    def setMatrix(self, matrix1, matrix2):
+        for i in range(len(matrix1)):
+            for j in range(len(matrix1[i])):
+                self.lblsMatrix[i][j].config(text = matrix1[i][j])
+                self.lblsMatrix2[i][j].config(text = matrix2[i][j])
+    
+    def setRes(self, strRes):
+        self.txtResult.delete('1.0', tk.END)
+        self.txtResult.insert(tk.INSERT, strRes)
+
+    def execute(self, event):
+        numbers = self.numbers
+        if len(numbers) == 0:
+            print("No hay numeros generados")
+        elif len(self.entAlpha.get()) == 0:
+            print("Debe indicar un nivel de confianza")          
+        else:
+            try:
+                nc = float(self.entAlpha.get())
+            except:
+                print("El nivel de confianza debe ser un double")
+                return
+            matrix1, matrix2, strRes = Series.execute(numbers, nc)
+            self.setMatrix(matrix1, matrix2) 
+            self.setRes(strRes)
+
+'''
         #Se crean las celdas
         self.lblFOs = []
         self.lblFOAs = []
@@ -105,27 +176,7 @@ class SeriesView:
     def setTotal(self, total):
         self.lblTotal.config(text = total)
 
-    def setRes(self, strRes):
-        self.txtResult.delete('1.0', tk.END)
-        self.txtResult.insert(tk.INSERT, strRes)
 
-    def execute(self, event):
-        numbers = self.numbers
-        if len(numbers) == 0:
-            print("No hay numeros generados")
-        elif len(self.entAlpha.get()) == 0:
-            print("Debe indicar un nivel de confianza")          
-        else:
-            try:
-                nc = float(self.entAlpha.get())
-            except:
-                print("El nivel de confianza debe ser un double")
-                return
-            fos, foas, poas, peas, difs, DMcalc, strRes = KolmogorovSmirnov.execute(numbers, nc)
-            self.setFOs(fos)
-            self.setFOAs(foas)
-            self.setPOAs(poas)
-            self.setPEAs(peas)
-            self.setDifs(difs)
-            self.setTotal(DMcalc)
-            self.setRes(strRes)
+
+    
+'''
