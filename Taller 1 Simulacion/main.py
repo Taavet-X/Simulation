@@ -105,8 +105,13 @@ def on_field_change(index, value, op):
         entm.config(state= "disabled") 
 strvGenerator.trace('w',on_field_change)
 
-btnGenerate = tk.Button(frmGenerator, text="Ejecutar",command='')
+btnGenerate = tk.Button(frmGenerator, text="Generar",command='')
 btnGenerate.grid(row=6, column=0, columnspan=2, sticky="news", padx=5, pady=5)
+
+btnLoad = tk.Button(frmGenerator, text="Cargar",command='')
+btnLoad.grid(row=7, column=0, columnspan=2, sticky="news", padx=5, pady=5)
+
+
 
 
 
@@ -140,6 +145,8 @@ tab4.grid_columnconfigure(0, weight = 1)
 tab4.grid_rowconfigure(2, weight = 1)
 
 tab5 = tk.Frame(tabControl)
+tab5.grid_columnconfigure(0, weight = 1)
+tab5.grid_rowconfigure(2, weight = 1)
   
 tabControl.add(tab1, text ='X2')
 tabControl.add(tab2, text ='Kolmogorov-Smirnov')
@@ -173,8 +180,10 @@ GUI.CorridasView.View(tab3, numbers)
 import GUI.SeriesView
 GUI.SeriesView.SeriesView(tab4, numbers)
 #FIN TABLA SERIES ###############################
-
-####################
+#TABLA POKER ####################################
+import GUI.PokerView
+GUI.PokerView.PokerView(tab5, numbers)
+#FIN TABLA POKER ####################################
 
 def generateNumbers(event):
     global numbers
@@ -192,8 +201,11 @@ def generateNumbers(event):
                 mb.showerror("Info", "Dato no valido")
                 return
             numbers.clear()
-            numbers.extend(GeneradorLinealCongruente.execute(x0, a, c, m, limit))
+            newNumbers, period = GeneradorLinealCongruente.execute(x0, a, c, m, limit)
+            numbers.extend(newNumbers)
             txtGeneratedNumbers.delete('1.0', tk.END)
+            txtGeneratedNumbers.insert(tk.END, "Periodo = " + str(period)) 
+            txtGeneratedNumbers.insert(tk.END, "\n------------\n")
             for number in numbers:
                 txtGeneratedNumbers.insert(tk.END, str(number)+"\n") 
         except NameError:
@@ -211,8 +223,11 @@ def generateNumbers(event):
                 mb.showerror("Info", "Dato no valido")
                 return
             numbers.clear()
-            numbers.extend(GeneradorEstandarMinimo.execute(x0, a, m, limit))
+            newNumbers, period = GeneradorEstandarMinimo.execute(x0, a, m, limit)
+            numbers.extend(newNumbers)
             txtGeneratedNumbers.delete('1.0', tk.END)
+            txtGeneratedNumbers.insert(tk.END, "Periodo = " + str(period)) 
+            txtGeneratedNumbers.insert(tk.END, "\n------------\n")
             for number in numbers:
                 txtGeneratedNumbers.insert(tk.END, str(number)+"\n")
         except NameError:
@@ -235,6 +250,23 @@ def generateNumbers(event):
             mb.showerror("Info", "Error")
             print(NameError)  
 
+def load(event):
+    file = open("input.txt", "r")
+    lines = file.readlines()
+    loadedNumbers = []
+    #conversion de los datos a double
+    for i in lines:
+        try:
+            loadedNumbers.append(float(i))
+        except:
+            print("Imposible to convert line #", i, "for", lines[i])
+    numbers.clear()
+    numbers.extend(loadedNumbers)
+    txtGeneratedNumbers.delete('1.0', tk.END)
+    for number in numbers:
+        txtGeneratedNumbers.insert(tk.END, str(number)+"\n")
+
 btnGenerate.bind('<Button-1>', generateNumbers)
+btnLoad.bind('<Button-1>', load)
 
 window.mainloop()

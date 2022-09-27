@@ -1,35 +1,50 @@
-o = [
-    0, #TD todos diferentes
-    0, #1P Un par
-    0, #2P Dos pares o T para 3 decimales
-    0, #T Tercia
-    0, #TP Tercia y un par
-    0, #P Poker (4 de un tipo)
-    0, #Q quintilla
-]
-total = 0
+import Values
 
-p5 = [
-    0.3024, #TD
-    0.504, #1P
-    0.108, #2P
-    0.072, #T
-    0.009, #TP
-    0.0045, #P
-    0.0001, #Q
+
+
+def execute(numbers, decimals, nc):
+
+    cats = [
+    "TD todos diferentes",
+    "1P Un par",
+    "2P Dos pares o T para 3 decimales",
+    "T Tercia",
+    "TP Tercia y un par",
+    "P Poker (4 de un tipo)",
+    "Q quintilla",
     ]
 
-p3 = [
-    0.72, #TD
-    0.24, #P
-    0.01  #T
-]
+    o = [
+        0, #TD todos diferentes
+        0, #1P Un par
+        0, #2P Dos pares o T para 3 decimales
+        0, #T Tercia
+        0, #TP Tercia y un par
+        0, #P Poker (4 de un tipo)
+        0, #Q quintilla
+    ]
+    total = 0
 
-E = []
+    p5 = [
+        0.3024, #TD
+        0.504, #1P
+        0.108, #2P
+        0.072, #T
+        0.009, #TP
+        0.0045, #P
+        0.0001, #Q
+        ]
 
-x2s = []
+    p3 = [
+        0.72, #TD
+        0.24, #P
+        0.01  #T
+    ]
 
-def execute(numbers, decimals):
+    E = []
+
+    x2s = []
+
     x2Total = 0;    
     for number in numbers:
         dict = {}
@@ -53,7 +68,7 @@ def execute(numbers, decimals):
         for key in dict:
             dict2[dict[key]] += 1  
 
-        global total
+        #global total
         if decimals == 5:
             p = p5
             if dict2[1] == 5:
@@ -96,10 +111,45 @@ def execute(numbers, decimals):
         x2 = ((e-o[i])**2)/e
         x2s.append(x2)
         x2Total += x2
-    print(o, total,"\n",p,"\n", E,"\n", x2s, "\nx2", x2Total)
+    
+    if decimals == 5:
+        gl = 7 - 1
+    else:
+        gl = 3 - 2
+    xcrit = Values.get(gl, nc) #Se obtiene el xcritico de la tabla de probabilidades
+    strRes = "gl: " + str(gl) + "\nNivel de confianza: " + str(nc) + "\nX2calc: " + str(x2Total) + "\nX2crit: " + str(xcrit)
+    if x2Total <= xcrit:
+        strRes += "\nX2calc <= X2crit"
+        strRes += "\n\nConclusión:\nEl resultado no permite rechazar la hipotesis de independencia"
+    else:
+        strRes += "\nX2calc > X2crit"
+        strRes += "\n\nConclusión:\nSe rechaza la hipotesis de independencia"
 
-#execute(numbers, 3)
+    return cats, o, p, E, x2s, x2Total, strRes
+    #print(o, total,"\n",p,"\n", E,"\n", x2s, "\nx2", x2Total)
 
+'''
+numbers = [
+    0.29843621399176956,
+0.8454320987654321,
+0.8269958847736626,
+0.8727572016460905,
+0.7234567901234568,
+0.8976131687242799,
+0.35818930041152264,
+0.17925925925925926,
+0.21267489711934157,
+0.7547325102880659,
+0.2128395061728395,
+0.7721810699588477,
+0.062386831275720166,
+0.8241975308641976,
+0.5761316872427984,
+0.2811522633744856,
+0.013333333333333334,
+]
+print(execute(numbers, 3, 0.05))
+'''
 '''
 12345	12345	5	TD
 11234	1234		4	P
