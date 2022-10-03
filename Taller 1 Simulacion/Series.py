@@ -31,7 +31,7 @@ def execute(numbers, nc):
             print("The list lenght wasn't odd, the last number is not included")            
 
     n = len(numbers) #La cantidad de numeros
-    FE = (n/2) / 25 #Frecuencia esperada (cantidad de parejas / cantidad de clases o celdas)
+    FE = math.floor(n/2) / 25 #Frecuencia esperada (cantidad de parejas / cantidad de clases o celdas)
 
     X2calc = 0 #total (La suma de todas las celdas)
     for i in range(len(matrix)): #recorre el numero de filas

@@ -1,7 +1,5 @@
 import Values
 
-
-
 def execute(numbers, decimals, nc):
 
     cats = [
@@ -41,9 +39,9 @@ def execute(numbers, decimals, nc):
         0.01  #T
     ]
 
-    E = []
+    E = [0,0,0,0,0,0,0]
 
-    x2s = []
+    x2s = [0,0,0,0,0,0,0]
 
     x2Total = 0;    
     for number in numbers:
@@ -107,9 +105,9 @@ def execute(numbers, decimals, nc):
     for i in range(len(p)):
         prob = p[i]
         e = prob * total
-        E.append(e)
+        E[i] = e
         x2 = ((e-o[i])**2)/e
-        x2s.append(x2)
+        x2s[i] = x2
         x2Total += x2
     
     if decimals == 5:
