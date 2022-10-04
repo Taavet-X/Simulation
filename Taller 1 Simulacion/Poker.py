@@ -35,7 +35,7 @@ def execute(numbers, decimals, nc):
 
     p3 = [
         0.72, #TD
-        0.24, #P
+        0.27, #P
         0.01  #T
     ]
 
