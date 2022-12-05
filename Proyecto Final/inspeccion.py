@@ -67,11 +67,11 @@ def generarSalida():
     time = 0
     fifteenPercent =  math.ceil(products * 15 / 100)    
     for i in range(fifteenPercent):
-        time += 0.5#generador.N(30, 5) / 60.0
-    fivePercent = math.ceil(fifteenPercent * 5 / 100)
+        time += generador.N(30, 5) / 60.0
+    fivePercent = math.ceil(fifteenPercent * 4.1 / 100)
     for i in range(fivePercent):
-        time += 10#generador.U(5, 10)
-        time += 0.5#generador.N(30, 5) / 60.0      
+        time += generador.U(5, 10)
+        time += generador.N(30, 5) / 60.0      
     ts = round(time)
     products = 0
     #calcular tiempo de la proxima salida
@@ -80,8 +80,9 @@ def generarSalida():
     e = evento(tiempoProximaSalida, "S")
     insert(e)
 
+simulacion = []
 LEF.append(evento(timeBetweenInspections,"L"))
-while clock < 4320:  
+while clock < 1440:  
     e = LEF.pop(0)    
     oldClock = clock
     clock = e.time
@@ -90,5 +91,5 @@ while clock < 4320:
         llegada()
     else:
         salida()
-    
+    simulacion.append([e, LEF[:], server, queue])
     print(clock, e.eventType, list(map(lambda e:e.toString(),LEF)), server, queue)
