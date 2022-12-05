@@ -14,9 +14,11 @@ clock = 0
 LEF = []
 queue = 0
 server = 0
-servers = 1
+servers = 2
 products = 0
 timeBetweenInspections = 120
+countS = 0
+minEspera = 0
 
 
 def insert(event):
@@ -30,6 +32,7 @@ def insert(event):
         LEF.append(event)
 
 table = []
+espera = []
 def llegada():
     global queue, server
     #generar tiempo entre llegadas
@@ -48,6 +51,7 @@ def llegada():
     else:
         #aumentar el numero de inspecciones en la cola en 1
         queue += 1
+        espera.append(clock)
 
 def salida():
     global queue, server
@@ -90,6 +94,9 @@ while clock < 1440:
     if e.eventType == "L":
         llegada()
     else:
+        countS += 1
+        minEspera += clock - espera.pop(0)
+        #print(minEspera)
         salida()
-    simulacion.append([e, LEF[:], server, queue])
+    simulacion.append([countS,minEspera,LEF[:], server, queue])
     print(clock, e.eventType, list(map(lambda e:e.toString(),LEF)), server, queue)
