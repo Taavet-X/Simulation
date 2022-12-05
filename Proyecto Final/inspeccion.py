@@ -1,3 +1,6 @@
+import math
+import generador
+
 class evento:
 
     def __init__(self, time, eventType):
@@ -7,27 +10,14 @@ class evento:
     def toString(self):
         return str(self.time) + self.eventType
 
-#####################################################
-tls = [7, 8, 2, 11, 1, 7, 1, 7, 2, 7, 3, 41, 22]
-c1 = -1
-def getTL():
-    global c1 
-    c1 += 1
-    return tls[c1]
-
-tss = [6, 11, 18, 9, 15, 45]
-c2 = -1
-def getTS():
-    global c2
-    c2 += 1
-    return tss[c2]
-#####################################################
-
 clock = 0
 LEF = []
 queue = 0
 server = 0
+servers = 1
 products = 0
+timeBetweenInspections = 120
+
 
 def insert(event):
     if len(LEF) == 0:
@@ -41,55 +31,61 @@ def insert(event):
 
 table = []
 def llegada():
-    global queue, server, products
+    global queue, server
     #generar tiempo entre llegadas
-    tiempoEntreLlegadas = 120
+    tiempoEntreLlegadas = timeBetweenInspections
     #calcular el tiempo de la proxima llegada
     tiempoProximaLlegada = clock + tiempoEntreLlegadas
-    products += 4
     e = evento(tiempoProximaLlegada, "L")
     #colocarla en la lista de eventos futuros
     insert(e)
     #si el inspector esta desocupado    
-    if server == 0:
-        #generar tiempo de servicio
-        ts = products * 1
-        products = 0
-        #calcular tiempo de la proxima salida****
-        tiempoProximaSalida = clock + ts
-        #y colocar el evento de salida en la LEF
-        e = evento(tiempoProximaSalida, "S")
-        insert(e)
+    if server < servers:
+        generarSalida()
         #poner el inspector en ocupado
-        server = 1
+        server += 1
     #sino
     else:
         #aumentar el numero de inspecciones en la cola en 1
         queue += 1
 
 def salida():
-    global queue, server, products
-    #poner inspector en desocupado
-    server = 0
+    global queue, server
+    #poner inspector en desocupado    
+    server -= 1
     #si la cola no esta vacia
     if queue != 0:
         #reducir el numero de inspecciones en la cola en 1
         queue -= 1
-        #generar tiempo de servicio
-        ts = products * 1
-        products = 0
-        #calcular tiempo de la proxima salida****
-        tiempoProximaSalida = clock + ts
-        #y colocar el evento de salida en la LEF
-        e = evento(tiempoProximaSalida, "S")
-        insert(e)
+        generarSalida()
         #poner el inspector en ocupado
-        server = 1
+        server += 1
 
-LEF.append(evento(120,"L"))
-while clock < 500:  
-    e = LEF.pop(0)
+def generarSalida():
+    global products
+    #generar tiempo de servicio
+    time = 0
+    fifteenPercent =  math.ceil(products * 15 / 100)    
+    for i in range(fifteenPercent):
+        time += 0.5#generador.N(30, 5) / 60.0
+    fivePercent = math.ceil(fifteenPercent * 5 / 100)
+    for i in range(fivePercent):
+        time += 10#generador.U(5, 10)
+        time += 0.5#generador.N(30, 5) / 60.0      
+    ts = round(time)
+    products = 0
+    #calcular tiempo de la proxima salida
+    tiempoProximaSalida = clock + ts
+    #y colocar el evento de salida en la LEF
+    e = evento(tiempoProximaSalida, "S")
+    insert(e)
+
+LEF.append(evento(timeBetweenInspections,"L"))
+while clock < 4320:  
+    e = LEF.pop(0)    
+    oldClock = clock
     clock = e.time
+    products += (clock - oldClock)*20
     if e.eventType == "L":
         llegada()
     else:
