@@ -1,3 +1,9 @@
+#Carolina Caicedo Pasiminio - 2067815
+#Cristhian Camilo Lozano Gómez - 2067818
+#Germán David Estrada Holguin - 2013122
+#Manuel Alejandro Perdomo Londoño - 2067575
+#Nicolás Felipe Victoria Rodríguez - 1767315
+
 import math
 import generador
 
@@ -23,6 +29,7 @@ rho = 5
 timeBetweenInspections = 120
 pSeleccion = 15
 pAjuste = 5
+productosInspeccionados = 0
 
 def reset():
     global clock, LEF, queue, server, products
@@ -75,10 +82,11 @@ def salida():
         server += 1
 
 def generarSalida():
-    global products
+    global products, productosInspeccionados
     #generar tiempo de servicio
     time = 0
     fifteenPercent =  math.ceil(products * pSeleccion / 100) #15%
+    productosInspeccionados += fifteenPercent
     for i in range(fifteenPercent):
         time += generador.N(mu, rho) / 60.0
     fivePercent = math.ceil(fifteenPercent * pAjuste / 100) #5%
@@ -95,7 +103,7 @@ def generarSalida():
 
 
 def ejecutar(nInspectors, pSelection, pAdjust, aValue, bValue, muValue, rhoValue, tiempoEntreInspecciones, tiempoSimulacion):
-    global clock, products
+    global clock, products, productosInspeccionados
     global servers, pSeleccion, pAjuste, a, b, mu, rho,  timeBetweenInspections
     reset()
     servers = nInspectors
@@ -118,8 +126,9 @@ def ejecutar(nInspectors, pSelection, pAdjust, aValue, bValue, muValue, rhoValue
             llegada()
         else:
             salida()
-        simulacion.append([e, LEF[:], server, queue])
+        simulacion.append([e, LEF[:], server, queue])        
         strSimulacion += str(clock) + " " + e.eventType + " " +str(list(map(lambda e:e.toString(),LEF))) + " " + str(server) + " " + str(queue) + "\n"
+    strSimulacion += "Cantidad de productos Inspeccionados: " + str(productosInspeccionados) + "\n"
     return strSimulacion, simulacion
 
 #ejecutar(1,15,5,5,10,30,5,120, 1440)
