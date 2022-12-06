@@ -34,11 +34,15 @@ def getOutput(nInspectores, pSeleccion, pAjuste, a, b, mu, rho, timeBetweenInspe
 
     tiemposEspera = []
     tiempoTotal = 0
-
+    llegadas.pop(0)
     while len(salidas)>0:
         llegada = llegadas.pop(0)
         salida = salidas.pop(0)
-        tiempo = salida.time - llegada.time
+        if llegada.time < salida.time:
+            tiempo = salida.time - llegada.time
+        else:
+            tiempo = 0
+        #tiempo = salida.time - llegada.time
         tiemposEspera.append(tiempo)
         tiempoTotal += tiempo
 
