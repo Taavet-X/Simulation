@@ -76,9 +76,10 @@ def getOutput(nInspectores, pSeleccion, pAjuste, a, b, mu, rho, timeBetweenInspe
     #plt.plot(X, Y, color="blue")
     #plt.grid()
     #plt.show()
+    #Hola bebe
 
 
-    #Christian
+    #Christian.
     #--Porcentaje de ocupacion del inspector
     prevTime = 0
     prevStatus = 0
