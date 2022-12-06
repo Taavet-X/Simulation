@@ -32,12 +32,13 @@ pAjuste = 5
 productosInspeccionados = 0
 
 def reset():
-    global clock, LEF, queue, server, products
+    global clock, LEF, queue, server, products, productosInspeccionados
     clock = 0
     LEF = []
     queue = 0
     server = 0
     products = 0
+    productosInspeccionados = 0
 
 
 def insert(event):
