@@ -51,7 +51,7 @@ i = 0
 def U(a, b):
     global i
     r = randoms[i] * (b - a) + a
-    i += 1
+    i = (i + 1)%(len(randoms)-1)
     return r        
 
 def N(mu, rho):
