@@ -1,3 +1,9 @@
+#Carolina Caicedo Pasiminio - 2067815
+#Cristhian Camilo Lozano Gómez - 2067818
+#Germán David Estrada Holguin - 2013122
+#Manuel Alejandro Perdomo Londoño - 2067575
+#Nicolás Felipe Victoria Rodríguez - 1767315
+
 def execute(x0, a, c, m, limit): #El limite se utiliza ya que no afecta el algoritmo, mientras que m si.
     generatedNumbers = {} #Diccionario, se usa por eficiencia.
     x = x0 #se define inicialmente como la semilla

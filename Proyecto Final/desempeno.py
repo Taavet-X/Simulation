@@ -1,3 +1,9 @@
+#Carolina Caicedo Pasiminio - 2067815
+#Cristhian Camilo Lozano Gómez - 2067818
+#Germán David Estrada Holguin - 2013122
+#Manuel Alejandro Perdomo Londoño - 2067575
+#Nicolás Felipe Victoria Rodríguez - 1767315
+
 import inspeccion
 
 def getOutput(nInspectores, pSeleccion, pAjuste, a, b, mu, rho, timeBetweenInspections, simulationTime):
